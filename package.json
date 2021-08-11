@@ -1,6 +1,6 @@
 {
   "name": "quick-trans",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Auto-translate app localisation files with one command",
   "main": "index.js",
   "scripts": {

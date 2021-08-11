@@ -3,6 +3,7 @@ const fs = require('fs')
 const path = require('path')
 const jsonc = require('jsonc')
 const translate = require('@vitalets/google-translate-api')
+const { replaceAndGetTemplates, placeTemplates } = require('./templates.js')
 
 const inPath = process.argv[2]
 const outPath = process.argv[3]
@@ -28,9 +29,13 @@ async function translateObject (obj) {
   total += Object.keys(obj).length
   for (const key in obj) {
     if (typeof obj[key] === 'string') {
-      out[key] = (
-        await translate(obj[key], { from: inputLang, to: outputLang })
+      const [toTranslate, templates] = replaceAndGetTemplates(obj[key])
+      const transed = (
+        await translate(toTranslate, { from: inputLang, to: outputLang })
       ).text
+      const replaced = placeTemplates(transed, templates)
+
+      out[key] = replaced
     } else {
       out[key] = await translateObject(obj[key])
     }
