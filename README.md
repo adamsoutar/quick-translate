@@ -13,7 +13,7 @@ missed any strings etc.
 ## For example
 
 ```bash
-npx quick-trans en.json jp.json
+npx quick-trans en.json ja.json
 ```
 
 Will auto-translate all strings in `en.json` into Japanese
